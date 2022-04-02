@@ -126,4 +126,36 @@ final class CollectionTest extends TestCase
         self::assertSame([24, 26, 28], $x2multiplier->toArray());
         self::assertInstanceOf(ArrayIterator::class, $x2multiplier->getIterator());
     }
+
+    public function test_should_reduce_data(): void
+    {
+        self::assertSame(
+            50,
+            (new Collection(15, 35))->reduce(fn($a, $b) => $a + $b, 0),
+        );
+    }
+
+    public function test_should_reduce_data_using_keys(): void
+    {
+        self::assertSame(
+            50,
+            (new Collection([15 => '', 35 => '']))->reduce(fn($a, $_, $b) => $a + $b, 0),
+        );
+    }
+
+    public function test_should_filter_data(): void
+    {
+        self::assertSame(
+            [15, 10],
+            (new Collection([15, 35, 10]))->filter(fn($value) => $value < 20)->toArray(),
+        );
+    }
+
+    public function test_filter_should_be_immutable(): void
+    {
+        $collection = new Collection([15, 35, 10]);
+
+        self::assertSame([15, 10], $collection->filter(fn($value) => $value < 20)->toArray());
+        self::assertSame([15, 35], $collection->filter(fn($value) => $value > 10)->toArray());
+    }
 }

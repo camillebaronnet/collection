@@ -30,6 +30,28 @@ final class Collection implements \IteratorAggregate
         })($callback, $this));
     }
 
+    public function reduce(Closure $callback, mixed $initial = null): mixed
+    {
+        $result = $initial;
+
+        foreach ($this as $currentKey => $currentValue) {
+            $result = $callback($result, $currentValue, $currentKey);
+        }
+
+        return $result;
+    }
+
+    public function filter(Closure $callback): Collection
+    {
+        return new Collection((static function ($callback, iterable $iterator) {
+            foreach ($iterator as $item) {
+                if($callback($item)) {
+                    yield $item;
+                }
+            }
+        })($callback, $this));
+    }
+
     public function get(): Collection
     {
         return new Collection($this->stream instanceof Traversable

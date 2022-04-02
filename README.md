@@ -35,3 +35,63 @@ array(2) {
   string(9) "HELLO BAR"
 }
 ```
+## Basic operations
+
+- map
+- filter
+- reduce
+
+### Map
+
+The `map()` function iterates over each element and applies the transformation function provided by the user.
+
+```php
+map(fn($element) => /* ... */);
+```
+
+Example :
+
+```php
+(new Collection(10, 50, 100))
+    ->map(fn($element) => $element * 2)
+    ->toArray()
+;
+
+// [20, 100, 200]
+```
+
+### Filter
+
+The `filter()` method test elements using that pass the test implemented by the provided function.
+
+```php
+filter(fn ($element) => /* ... */);
+```
+
+Example : 
+
+```php
+(new Collection(10, 50, 100))
+    ->filter(fn($element) => $element > 20)
+    ->toArray()
+;
+// [50, 100]
+```
+
+### Reduce
+
+The `reduce()` method executes a reduction function provided by the user on each element, the result of each iteration is passed to the next iteration.
+
+```php
+reduce(fn($carry, $currentValue, $currentKey) => /* ... */, $initial);
+```
+
+Example :
+
+```php
+
+(new Collection(10, 50, 100))
+    ->reduce(fn($carry, $current) => $carry + $current)
+;
+// 160
+```
