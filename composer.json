@@ -1,5 +1,6 @@
 {
     "name": "camillebaronnet/collection",
+    "license": "mit",
     "require-dev": {
         "phpunit/phpunit": "^9.5",
         "symfony/var-dumper": "^6.0"
