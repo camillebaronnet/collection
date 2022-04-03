@@ -213,6 +213,24 @@ final class CollectionTest extends TestCase
         ], iterator_to_array($result[1]));
     }
 
+    public function test_group_should_support_iteration_before(): void
+    {
+        $result = (new Collection([
+            ['key1' => 'foo', 'key2' => 10],
+            ['key1' => 'bar', 'key2' => 11],
+            ['key1' => 'foo', 'key2' => 12],
+            ['key1' => 'bar', 'key2' => 14],
+        ]))->filter(fn() => true)->groupBy(fn($x) => $x['key1'])->toArray();
+
+        // Validate "foo" group
+        self::assertInstanceOf(CollectionGroup::class, $result[0]);
+        self::assertEquals('foo', $result[0]->key);
+        self::assertEquals([
+            ['key1' => 'foo', 'key2' => 10],
+            ['key1' => 'foo', 'key2' => 12],
+        ], iterator_to_array($result[0]));
+    }
+
     public function test_should_be_countable(): void
     {
         $collection = new Collection(10, 20, 30);
