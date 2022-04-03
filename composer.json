@@ -1,5 +1,5 @@
 {
-    "name": "camillebaronnet/list",
+    "name": "camillebaronnet/collection",
     "require-dev": {
         "phpunit/phpunit": "^9.5",
         "symfony/var-dumper": "^6.0"
