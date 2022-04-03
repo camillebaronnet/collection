@@ -10,7 +10,7 @@ use Camillebaronnet\Collection\Traits\HasReduceOperation;
 use Closure;
 use Traversable;
 
-final class Collection implements \IteratorAggregate
+class Collection implements \IteratorAggregate
 {
     use HasReduceOperation;
     use HasFilterOperation;

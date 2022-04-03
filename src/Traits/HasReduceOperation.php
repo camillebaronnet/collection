@@ -2,6 +2,8 @@
 
 namespace Camillebaronnet\Collection\Traits;
 
+use Camillebaronnet\Collection\Collection;
+use Camillebaronnet\Collection\CollectionGroup;
 use Closure;
 
 /**
@@ -23,5 +25,17 @@ trait HasReduceOperation
             $nbItems++;
             return $a + $b;
         }, 0) / $nbItems;
+    }
+
+    public function groupBy(Closure $callback): Collection
+    {
+        return new Collection((function() use ($callback) {
+            foreach ($this->map($callback)->unique() as $item) {
+                yield new CollectionGroup(
+                    key: $item,
+                    elements: $this->filter(fn ($x) => $item === $callback($x)),
+                );
+            }
+        })());
     }
 }

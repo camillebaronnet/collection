@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Camillebaronnet\Collection\Collection;
+use Camillebaronnet\Collection\CollectionGroup;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
@@ -181,5 +182,34 @@ final class CollectionTest extends TestCase
             ['foo', 'bar', 'buzz'],
             (new Collection(['foo', 'bar', 'foo', 'bar', 'bar', 'buzz']))->unique()->toArray(),
         );
+    }
+
+    public function test_should_group_elements(): void
+    {
+        $result = (new Collection([
+            ['key1' => 'foo', 'key2' => 10],
+            ['key1' => 'bar', 'key2' => 11],
+            ['key1' => 'foo', 'key2' => 12],
+            ['key1' => 'bar', 'key2' => 14],
+        ]))->groupBy(fn($x) => $x['key1'])->toArray();
+
+        self::assertCount(2, $result);
+
+        // Validate "foo" group
+        self::assertInstanceOf(CollectionGroup::class, $result[0]);
+        self::assertEquals('foo', $result[0]->key);
+        self::assertEquals([
+            ['key1' => 'foo', 'key2' => 10],
+            ['key1' => 'foo', 'key2' => 12],
+        ], iterator_to_array($result[0]));
+
+
+        // Validate "bar" group
+        self::assertInstanceOf(CollectionGroup::class, $result[1]);
+        self::assertEquals('bar', $result[1]->key);
+        self::assertEquals([
+            ['key1' => 'bar', 'key2' => 11],
+            ['key1' => 'bar', 'key2' => 14],
+        ], iterator_to_array($result[1]));
     }
 }

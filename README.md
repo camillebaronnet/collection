@@ -43,6 +43,7 @@ array(2) {
 - sum(): int|float
 - avg(): int|float
 - unique(): Collection
+- [groupBy(callable): CollectionGroup](#groupby)
 
 ### Map
 
@@ -97,4 +98,30 @@ Example :
     ->reduce(fn($carry, $current) => $carry + $current)
 ;
 // 160
+```
+
+### GroupBy
+
+The method `groupBy()` returns a Collection of CollectionGroup. 
+A CollectionGroup is a simple collection with a `key` property added.
+
+```php
+groupBy(fn ($element) => /* ...  */);
+```
+
+Example :
+
+```php
+$result = (new Collection([
+        ['key1' => 'foo', 'key2' => 10],
+        ['key1' => 'bar', 'key2' => 11],
+        ['key1' => 'foo', 'key2' => 12],
+        ['key1' => 'bar', 'key2' => 14],
+    ]))
+    ->groupBy(fn($x) => $x['key1'])
+    ->toArray() // [CollectionGroup, CollectionGroup]
+;
+
+$result[0]->key; // 'foo'
+$result[0]->toArray(); // [['key1' => 'foo', 'key2' => 10],['key1' => 'foo', 'key2' => 12],]
 ```
