@@ -38,4 +38,12 @@ trait HasReduceOperation
             }
         })());
     }
+
+    public function count(): int
+    {
+        return $this->reduce(function ($nbItems) {
+            $nbItems++;
+            return $nbItems;
+        }, 0);
+    }
 }

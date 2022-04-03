@@ -45,6 +45,7 @@ array(2) {
 - sum(): int|float
 - avg(): int|float
 - unique(): Collection
+- count(): int
 - [groupBy(callable): CollectionGroup](#groupby)
 
 ---

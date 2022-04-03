@@ -212,4 +212,19 @@ final class CollectionTest extends TestCase
             ['key1' => 'bar', 'key2' => 14],
         ], iterator_to_array($result[1]));
     }
+
+    public function test_should_be_countable(): void
+    {
+        $collection = new Collection(10, 20, 30);
+        self::assertInstanceOf(Countable::class, $collection);
+        self::assertCount(3, $collection);
+    }
+
+    public function test_should_be_countable_after_operation_is_applied(): void
+    {
+        $collection = (new Collection(10, 20, 30))->filter(fn(int $number) => $number > 15);
+
+        self::assertInstanceOf(Countable::class, $collection);
+        self::assertCount(2, $collection);
+    }
 }

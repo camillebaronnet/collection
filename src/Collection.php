@@ -8,9 +8,11 @@ use ArrayIterator;
 use Camillebaronnet\Collection\Traits\HasFilterOperation;
 use Camillebaronnet\Collection\Traits\HasReduceOperation;
 use Closure;
+use Countable;
+use IteratorAggregate;
 use Traversable;
 
-class Collection implements \IteratorAggregate
+class Collection implements IteratorAggregate, Countable
 {
     use HasReduceOperation;
     use HasFilterOperation;
