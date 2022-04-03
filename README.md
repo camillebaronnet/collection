@@ -3,6 +3,8 @@
 Collection provides a powerful data manipulation system based on the map/reduce/filter principles.
 Thanks to the php generators and the immutability, it allows to calculate the data as late as possible while preserving the memory.
 
+
+
 ## Installation
 
 ```sh
@@ -44,6 +46,14 @@ array(2) {
 - avg(): int|float
 - unique(): Collection
 - [groupBy(callable): CollectionGroup](#groupby)
+
+---
+
+**Note :** As long as you use map/filter operations, nothing will be executed or stored 
+in memory. If you decide to do more than one reduce or iterate operation, use `get()` 
+first to before to buffer the previous operations.
+
+---
 
 ### Map
 
