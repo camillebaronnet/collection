@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Camillebaronnet\Collection;
 
 use ArrayIterator;
+use Camillebaronnet\Collection\Traits\HasFilterOperation;
+use Camillebaronnet\Collection\Traits\HasReduceOperation;
 use Closure;
 use Traversable;
 
 final class Collection implements \IteratorAggregate
 {
+    use HasReduceOperation;
+    use HasFilterOperation;
+
     private array|Traversable $stream;
 
     public function __construct(...$elements)

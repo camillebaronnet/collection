@@ -1,6 +1,6 @@
 # Collection
 
-Collection provides a powerful data manipulation system based on the map principle.
+Collection provides a powerful data manipulation system based on the map/reduce/filter principles.
 Thanks to the php generators and the immutability, it allows to calculate the data as late as possible while preserving the memory.
 
 ## Installation
@@ -37,9 +37,12 @@ array(2) {
 ```
 ## Basic operations
 
-- map
-- filter
-- reduce
+- [map(callable): Collection](#map)
+- [filter(callable): Collection](#filter)
+- [reduce(callable, initial): mixed](#reduce)
+- sum(): int|float
+- avg(): int|float
+- unique(): Collection
 
 ### Map
 

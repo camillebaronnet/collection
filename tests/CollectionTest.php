@@ -158,4 +158,28 @@ final class CollectionTest extends TestCase
         self::assertSame([15, 10], $collection->filter(fn($value) => $value < 20)->toArray());
         self::assertSame([15, 35], $collection->filter(fn($value) => $value > 10)->toArray());
     }
+
+    public function test_should_sum_elements(): void
+    {
+        self::assertSame(
+            50.4,
+            (new Collection([15.4, 35]))->sum(),
+        );
+    }
+
+    public function test_should_avg_elements(): void
+    {
+        self::assertSame(
+            25.5,
+            (new Collection([30,15, 15, 42]))->avg(),
+        );
+    }
+
+    public function test_should_fetch_unique_elements(): void
+    {
+        self::assertSame(
+            ['foo', 'bar', 'buzz'],
+            (new Collection(['foo', 'bar', 'foo', 'bar', 'bar', 'buzz']))->unique()->toArray(),
+        );
+    }
 }
