@@ -281,4 +281,17 @@ final class CollectionTest extends TestCase
 
         self::assertSame(['foo', 'bar'], $logs);
     }
+
+    public function test_should_flatten(): void
+    {
+        $collection = new Collection([10, 20], [30, 40], [50, 60]);
+        self::assertSame([10, 20, 30, 40, 50, 60], $collection->flatten()->toArray());
+    }
+
+    public function test_flatten_should_be_immutable(): void
+    {
+        $collection = new Collection([10, 20], [30, 40], [50, 60]);
+        $collection->flatten()->toArray();
+        self::assertSame([[10, 20], [30, 40], [50, 60]], $collection->toArray());
+    }
 }

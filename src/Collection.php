@@ -91,4 +91,15 @@ class Collection implements IteratorAggregate, Countable
 
         return $this;
     }
+
+    public function flatten(): Collection
+    {
+        return new Collection((static function (iterable $iterator) {
+            foreach ($iterator as $item) {
+                foreach($item as $subItem) {
+                    yield $subItem;
+                }
+            }
+        })($this));
+    }
 }
