@@ -245,4 +245,40 @@ final class CollectionTest extends TestCase
         self::assertInstanceOf(Countable::class, $collection);
         self::assertCount(2, $collection);
     }
+
+    public function test_should_have_an_internal_iterator(): void
+    {
+        $logs = [];
+        $collection = new Collection(10, 20, 30);
+        $collection->each(function ($element) use (&$logs) {
+            $logs[] = $element;
+        });
+
+        self::assertSame([10, 20, 30], $logs);
+    }
+
+    public function test_internal_iterator_should_stop_when_it_receive_false(): void
+    {
+        $logs = [];
+        $collection = new Collection(10, 20, 30);
+        $collection->each(function ($element) use (&$logs) {
+            $logs[] = $element;
+            if($element === 20) {
+                return false;
+            }
+        });
+
+        self::assertSame([10, 20], $logs);
+    }
+
+    public function test_internal_iterator_should_support_keys(): void
+    {
+        $logs = [];
+        $collection = new Collection(['foo' => 10, 'bar' => 20]);
+        $collection->each(function ($element, $key) use (&$logs) {
+            $logs[] = $key;
+        });
+
+        self::assertSame(['foo', 'bar'], $logs);
+    }
 }

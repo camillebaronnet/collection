@@ -80,4 +80,15 @@ class Collection implements IteratorAggregate, Countable
 
         return $this->stream;
     }
+
+    public function each(Closure $callback): Collection
+    {
+        foreach($this->stream as $key => $element) {
+            if($callback($element, $key) === false) {
+                break;
+            }
+        }
+
+        return $this;
+    }
 }
