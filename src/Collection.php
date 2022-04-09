@@ -102,4 +102,9 @@ class Collection implements IteratorAggregate, Countable
             }
         })($this));
     }
+
+    public function flatMap(Closure $callback): Collection
+    {
+       return $this->map($callback)->flatten();
+    }
 }

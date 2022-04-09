@@ -294,4 +294,30 @@ final class CollectionTest extends TestCase
         $collection->flatten()->toArray();
         self::assertSame([[10, 20], [30, 40], [50, 60]], $collection->toArray());
     }
+
+    public function test_should_flat_map(): void
+    {
+        $collection = new Collection([
+            ['items' => [10, 20]],
+            ['items' => [30, 40]],
+            ['items' => [50, 60]],
+        ]);
+
+        self::assertSame([10, 20, 30, 40, 50, 60], $collection->flatMap(fn($element) => $element['items'])->toArray());
+    }
+
+    public function test_flatmap_should_be_immutable(): void
+    {
+        $collection = new Collection([
+            ['items' => [10, 20]],
+            ['items' => [30, 40]],
+            ['items' => [50, 60]],
+        ]);
+        $collection->flatMap(fn($element) => $element['items'])->toArray();
+        self::assertSame([
+            ['items' => [10, 20]],
+            ['items' => [30, 40]],
+            ['items' => [50, 60]],
+        ], $collection->toArray());
+    }
 }

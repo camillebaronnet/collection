@@ -42,6 +42,8 @@ array(2) {
 - [map(callable): Collection](#map)
 - [filter(callable): Collection](#filter)
 - [reduce(callable, initial): mixed](#reduce)
+- flatten(): Collection
+- flatMap(callable): Collection
 - sum(): int|float
 - avg(): int|float
 - unique(): Collection
