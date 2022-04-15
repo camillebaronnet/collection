@@ -46,4 +46,9 @@ trait HasReduceOperation
             return $nbItems;
         }, 0);
     }
+
+    public function first(): mixed
+    {
+        return $this->getIterator()->current();
+    }
 }

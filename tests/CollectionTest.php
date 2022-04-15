@@ -355,4 +355,18 @@ final class CollectionTest extends TestCase
         $collection->sort()->toArray();
         self::assertSame(['lemon', 'orange', 'banana', 'apple'], $collection->toArray());
     }
+
+    public function test_should_get_first_element(): void
+    {
+        $collection = new Collection('lemon', 'orange', 'banana', 'apple');
+        $first = $collection->first();
+        self::assertSame('lemon', $first);
+    }
+
+    public function test_first_should_be_immutable(): void
+    {
+        $collection = new Collection('lemon', 'orange', 'banana', 'apple');
+        $collection->first();
+        self::assertSame(['lemon', 'orange', 'banana', 'apple'], $collection->toArray());
+    }
 }
