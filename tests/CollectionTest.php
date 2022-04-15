@@ -320,4 +320,39 @@ final class CollectionTest extends TestCase
             ['items' => [50, 60]],
         ], $collection->toArray());
     }
+
+    public function test_should_sort_number(): void
+    {
+        $collection = new Collection(20, 10, 30, 5);
+        self::assertSame([5, 10, 20, 30], $collection->sort()->toArray());
+    }
+
+    public function test_should_sort_string(): void
+    {
+        $collection = new Collection('lemon', 'orange', 'banana', 'apple');
+        self::assertSame(['apple', 'banana', 'lemon', 'orange'], $collection->sort()->toArray());
+    }
+
+    public function test_should_sort_with_callable(): void
+    {
+        $collection = new Collection(
+            ['key' => 1, 'name' => 'lemon'],
+            ['key' => 2, 'name' => 'orange'],
+            ['key' => 3, 'name' => 'banana'],
+            ['key' => 4, 'name' => 'apple'],
+        );
+        self::assertSame([
+            ['key' => 4, 'name' => 'apple'],
+            ['key' => 3, 'name' => 'banana'],
+            ['key' => 1, 'name' => 'lemon'],
+            ['key' => 2, 'name' => 'orange'],
+        ], $collection->sort(fn($a, $b) => strnatcmp($a['name'], $b['name']))->toArray());
+    }
+
+    public function test_sort_should_be_immutable(): void
+    {
+        $collection = new Collection('lemon', 'orange', 'banana', 'apple');
+        $collection->sort()->toArray();
+        self::assertSame(['lemon', 'orange', 'banana', 'apple'], $collection->toArray());
+    }
 }

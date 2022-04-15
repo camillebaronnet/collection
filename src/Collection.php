@@ -107,4 +107,16 @@ class Collection implements IteratorAggregate, Countable
     {
        return $this->map($callback)->flatten();
     }
+
+    public function sort(Closure $callback = null): Collection
+    {
+        $elements = $this->toArray();
+
+        if($callback) {
+            usort($elements, $callback);
+        } else {
+            sort($elements);
+        }
+        return new Collection($elements);
+    }
 }
