@@ -1,3 +1,6 @@
+> [!WARNING]
+> **[Archived]** Since the arrival of PHP pipe operators, use a true pipe-native approach with a library such as: https://github.com/stannapp/stream-php
+
 # Collection
 
 Collection provides a powerful data manipulation system based on the map/reduce/filter principles.
